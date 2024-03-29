@@ -1,3 +1,4 @@
+import com.example.Animal;
 import com.example.Feline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,32 +10,30 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
     @Spy
-    private Feline feline;
+    private Feline felineSpy;
 
     @Test
     public void eatMeatTest() throws Exception {
-        feline.eatMeat();
-        Mockito.verify(feline, Mockito.times(1)).getFood("Хищник");
+        Feline feline = new Feline();
+        Animal animal = new Animal();
+        assertEquals(feline.eatMeat(), animal.getFood("Хищник"));
     }
 
     @Test
     public void getFamilyTest() {
-        String expected = "Кошачьи";
-        String actual = feline.getFamily();
-        assertEquals(expected, actual);
+        Feline feline = new Feline();
+        assertEquals("Кошачьи", feline.getFamily());
     }
 
     @Test
     public void getKittensTest() {
-        int expected = 1;
-        int actual = feline.getKittens();
-        assertEquals(expected, actual);
+        felineSpy.getKittens();
+        Mockito.verify(felineSpy, Mockito.times(1)).getKittens(1);
     }
 
     @Test
     public void getKittensWithParameterTest() {
-        int expected = 3;
-        int actual = feline.getKittens(3);
-        assertEquals(expected, actual);
+        Feline feline = new Feline();
+        assertEquals(1, feline.getKittens(1));
     }
 }
